@@ -64,7 +64,7 @@ if __name__ == "__main__":
     parser.add_argument('--goal', help='goal of the experiment', type=str, default=None)
     parser.add_argument('--exp_name', help='name of the experiment', type=str, required=True)
     parser.add_argument('--seed', help='global random seed', type=int, default=5959)
-    parser.add_argument('--server_device', help='device to use; `cpu`, `cuda`, `cuda:GPU_NUMBER`', type=str, default=f'cuda:{torch.cuda.device_count() - 1}')
+    parser.add_argument('--server_device', help='device to use; `cpu`, `cuda`, `cuda:GPU_NUMBER`', type=str, default=f'cpu')
     parser.add_argument('--data_path', help='path to save & read raw data', type=str, default='./data')
     parser.add_argument('--modality', help='modality of the dataset', type=str, default='ct')
     parser.add_argument('--log_path', help='path to save logs', type=str, default='./log')
@@ -302,7 +302,7 @@ if __name__ == "__main__":
     # # define writer
     # writer = SummaryWriter(log_dir=os.path.join(args.log_path, f'{args.exp_name}_{curr_time}'), filename_suffix=f'_{curr_time}')
 
-    wandb.init(config=args,project='YOUR/PROJECT/NAME', entity='YOUR/ENTITY', name=f"{args.exp_name}{'_aux' if args.with_aux else ''}{'_attn' if args.with_aux and args.aux_attn_only else ''}{'_mlp' if args.with_aux and args.aux_mlp_only else ''}{'_'+str(args.aux_trained) if args.with_aux else ''}_{args.shared_param}_{args.share_scope}{'_comp' if args.compensation else ''}_{args.colearn_param}_{args.warmup_modality}_{args.freeze_modality}_{curr_time}")
+    wandb.init(config=args,project='fl_test_1', entity='e-rahpeyma92-kntu', name=f"{args.exp_name}{'_aux' if args.with_aux else ''}{'_attn' if args.with_aux and args.aux_attn_only else ''}{'_mlp' if args.with_aux and args.aux_mlp_only else ''}{'_'+str(args.aux_trained) if args.with_aux else ''}_{args.shared_param}_{args.share_scope}{'_comp' if args.compensation else ''}_{args.colearn_param}_{args.warmup_modality}_{args.freeze_modality}_{curr_time}")
     # run main program
     torch.autograd.set_detect_anomaly(True)
     # try:
