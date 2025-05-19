@@ -11,6 +11,6 @@ transformers==4.23.0
 einops
 ml_collections
 timm==0.9.12
-pycocotools==2.0.6
+pycocotools
 ujson
 medmnist
