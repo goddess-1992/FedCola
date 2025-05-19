@@ -134,11 +134,12 @@ class FedavgServer(BaseServer):
         self.results = defaultdict(dict) # logging results container
         self.server_device = self.args.server_device
 
-        if type(args.Cs) != list or len(args.Cs) == 1:
-            if len(args.Cs) == 1:
-                self.args.Cs = self.args.Cs * len(self.args.datasets)
-            else:
-                self.args.Cs = [self.args.Cs] * len(self.args.datasets)
+        if not isinstance(args.Cs, list):
+            # Cs یک عدد تکی است، آن را به لیستی با طول datasets تبدیل می‌کنیم
+            self.args.Cs = [self.args.Cs] * len(self.args.datasets)
+        elif len(self.args.Cs) == 1:
+            # Cs یک لیست تک‌عضوی است، آن را با تکرار عضو اول، به اندازه datasets بسط می‌دهیم
+            self.args.Cs = self.args.Cs * len(self.args.datasets)
         self.Cs = {dataset: C for dataset, C in zip(self.args.datasets, self.args.Cs)}
 
     def _init_model(self, model_str):
